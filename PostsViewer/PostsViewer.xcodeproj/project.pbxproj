@@ -9,11 +9,15 @@
 /* Begin PBXBuildFile section */
 		4171379BC0F76A5475CCD900 /* Pods_PostsViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D31F715F7A74128D7DF671E /* Pods_PostsViewer.framework */; };
 		D277AAE025E3A7C800F07D85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277AADF25E3A7C800F07D85 /* AppDelegate.swift */; };
-		D277AAE225E3A7C800F07D85 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277AAE125E3A7C800F07D85 /* ViewController.swift */; };
 		D277AAE525E3A7C800F07D85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D277AAE325E3A7C800F07D85 /* Main.storyboard */; };
 		D277AAE825E3A7C800F07D85 /* PostsViewer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D277AAE625E3A7C800F07D85 /* PostsViewer.xcdatamodeld */; };
 		D277AAEA25E3A7CB00F07D85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D277AAE925E3A7CB00F07D85 /* Assets.xcassets */; };
 		D277AAED25E3A7CB00F07D85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D277AAEB25E3A7CB00F07D85 /* LaunchScreen.storyboard */; };
+		D277AAF525E3B10500F07D85 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277AAF425E3B10500F07D85 /* LoginVC.swift */; };
+		D277AAF725E3B2F400F07D85 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277AAF625E3B2F400F07D85 /* LoginViewModel.swift */; };
+		D277AAFB25E3C61700F07D85 /* PostsDisplayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277AAFA25E3C61700F07D85 /* PostsDisplayVC.swift */; };
+		D277AAFD25E3C65000F07D85 /* PostsDisplayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277AAFC25E3C65000F07D85 /* PostsDisplayViewModel.swift */; };
+		D277AB0025E3CD7600F07D85 /* WebserviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D277AAFF25E3CD7600F07D85 /* WebserviceHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,12 +26,16 @@
 		A9D342C9CA32A081F8AE6742 /* Pods-PostsViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostsViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PostsViewer/Pods-PostsViewer.debug.xcconfig"; sourceTree = "<group>"; };
 		D277AADC25E3A7C800F07D85 /* PostsViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostsViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D277AADF25E3A7C800F07D85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D277AAE125E3A7C800F07D85 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D277AAE425E3A7C800F07D85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D277AAE725E3A7C800F07D85 /* PostsViewer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PostsViewer.xcdatamodel; sourceTree = "<group>"; };
 		D277AAE925E3A7CB00F07D85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D277AAEC25E3A7CB00F07D85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D277AAEE25E3A7CB00F07D85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D277AAF425E3B10500F07D85 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		D277AAF625E3B2F400F07D85 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		D277AAFA25E3C61700F07D85 /* PostsDisplayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsDisplayVC.swift; sourceTree = "<group>"; };
+		D277AAFC25E3C65000F07D85 /* PostsDisplayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsDisplayViewModel.swift; sourceTree = "<group>"; };
+		D277AAFF25E3CD7600F07D85 /* WebserviceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebserviceHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +79,10 @@
 		D277AADE25E3A7C800F07D85 /* PostsViewer */ = {
 			isa = PBXGroup;
 			children = (
+				D277AAFE25E3CC4100F07D85 /* WebserviceHelpers */,
+				D277AAF925E3BF0D00F07D85 /* ViewModels */,
+				D277AAF825E3BEF700F07D85 /* ViewControllers */,
 				D277AADF25E3A7C800F07D85 /* AppDelegate.swift */,
-				D277AAE125E3A7C800F07D85 /* ViewController.swift */,
 				D277AAE325E3A7C800F07D85 /* Main.storyboard */,
 				D277AAE925E3A7CB00F07D85 /* Assets.xcassets */,
 				D277AAEB25E3A7CB00F07D85 /* LaunchScreen.storyboard */,
@@ -80,6 +90,32 @@
 				D277AAE625E3A7C800F07D85 /* PostsViewer.xcdatamodeld */,
 			);
 			path = PostsViewer;
+			sourceTree = "<group>";
+		};
+		D277AAF825E3BEF700F07D85 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D277AAF425E3B10500F07D85 /* LoginVC.swift */,
+				D277AAFA25E3C61700F07D85 /* PostsDisplayVC.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D277AAF925E3BF0D00F07D85 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D277AAF625E3B2F400F07D85 /* LoginViewModel.swift */,
+				D277AAFC25E3C65000F07D85 /* PostsDisplayViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D277AAFE25E3CC4100F07D85 /* WebserviceHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				D277AAFF25E3CD7600F07D85 /* WebserviceHelper.swift */,
+			);
+			path = WebserviceHelpers;
 			sourceTree = "<group>";
 		};
 		D5FDCDB31CDA4E5C6D404AB3 /* Pods */ = {
@@ -102,6 +138,7 @@
 				D277AAD825E3A7C800F07D85 /* Sources */,
 				D277AAD925E3A7C800F07D85 /* Frameworks */,
 				D277AADA25E3A7C800F07D85 /* Resources */,
+				6A6F44EE37DF5D97A8F7D143 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -159,6 +196,30 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6A6F44EE37DF5D97A8F7D143 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PostsViewer/Pods-PostsViewer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PostsViewer/Pods-PostsViewer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B059367F060DA95459A73663 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -184,8 +245,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D277AAE225E3A7C800F07D85 /* ViewController.swift in Sources */,
+				D277AAFB25E3C61700F07D85 /* PostsDisplayVC.swift in Sources */,
+				D277AAFD25E3C65000F07D85 /* PostsDisplayViewModel.swift in Sources */,
+				D277AB0025E3CD7600F07D85 /* WebserviceHelper.swift in Sources */,
+				D277AAF725E3B2F400F07D85 /* LoginViewModel.swift in Sources */,
 				D277AAE825E3A7C800F07D85 /* PostsViewer.xcdatamodeld in Sources */,
+				D277AAF525E3B10500F07D85 /* LoginVC.swift in Sources */,
 				D277AAE025E3A7C800F07D85 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
