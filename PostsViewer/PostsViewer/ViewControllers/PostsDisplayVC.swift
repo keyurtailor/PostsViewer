@@ -63,6 +63,13 @@ class PostsDisplayVC: UIViewController {
         self.setupTableWith(data: tableData)
     }
     
+    func removePreviousPostsFromCoreData() {
+        let posts = persistenceManager.fetch(PostDetail.self)
+        _ = posts.map { [weak self] post in
+            self?.persistenceManager.delete(post)
+        }
+    }
+    
     func markFavouritePost(indexPath: IndexPath) {
         self.listOfPosts?[indexPath.row].favourite = !self.listOfPosts[indexPath.row].favourite
         self.persistenceManager.saveContext()
