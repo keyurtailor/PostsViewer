@@ -13,8 +13,8 @@ import NVActivityIndicatorView
 class WebserviceHelper {
     static let shared = WebserviceHelper()
     
-    typealias successClosure = (Dictionary<String, Any>) -> Void
-    typealias failureClosure = (Dictionary<String, Any>) -> Void
+    typealias successClosure = ([Post]) -> Void
+    typealias failureClosure = (Array<Dictionary<String, Any>>) -> Void
     
     func showActivityIndicator() {
         let activityData = ActivityData.init(size: CGSize(width:50, height:50), message: "", messageFont: UIFont.systemFont(ofSize: 15.0), messageSpacing: 0.0, type: NVActivityIndicatorType.circleStrokeSpin, color: UIColor.blue, padding: 5.0, displayTimeThreshold: 0, minimumDisplayTime: 0, backgroundColor: UIColor.black.withAlphaComponent(0.2), textColor: UIColor.clear)
@@ -29,7 +29,7 @@ class WebserviceHelper {
     
     func getCall(serviceURL: String, spinnerState: Bool, successCallback: successClosure?, failureCallback: failureClosure?) {
         if !NetworkReachabilityManager()!.isReachable {
-            failureCallback!(["error_description":"Internet not available."])
+            failureCallback!([["error_description":"Internet not available."]])
         } else {
             if spinnerState {
                 self.showActivityIndicator()
@@ -39,13 +39,19 @@ class WebserviceHelper {
                     if spinnerState {
                         self.hideActivityIndicator()
                     }
-                    failureCallback!(["error_description":response.result.error?.localizedDescription ?? "Server is not reachable."])
+                    failureCallback!([["error_description":response.result.error?.localizedDescription ?? "Server is not reachable."]])
                 } else {
-                    let responseDict = response.result.value as! [String:Any]
                     if spinnerState {
                         self.hideActivityIndicator()
                     }
-                    successCallback!(responseDict)
+                    guard let data = response.data else { return }
+                    do {
+                        let decoder = JSONDecoder()
+                        let loginRequest = try decoder.decode([Post].self, from: data)
+                        successCallback!(loginRequest)
+                    } catch let error {
+                        print(error)
+                    }
                 }
             }
         }
@@ -55,11 +61,7 @@ class WebserviceHelper {
         let serviceURL = "https://jsonplaceholder.typicode.com/posts"
         
         self.getCall(serviceURL: serviceURL, spinnerState: false, successCallback: { (successDict) in
-            if (successDict["errorCode"] as! String) != "" {
-                failureCallback!(successDict)
-            } else {
-                successCallback!(successDict)
-            }
+            successCallback!(successDict)
         }) { (failureDict) in
             failureCallback!(failureDict)
         }
