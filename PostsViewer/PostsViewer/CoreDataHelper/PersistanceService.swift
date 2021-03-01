@@ -34,7 +34,7 @@ final class PersistenceService {
         if context.hasChanges {
             do {
                 try context.save()
-                print("SAVED")
+//                print("SAVED")
             } catch {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -58,5 +58,12 @@ final class PersistenceService {
     func delete(_ object:NSManagedObject) {
         context.delete(object)
         saveContext()
+    }
+    
+    func isEntityAttributeExist(id: Int, entityName: String) -> Bool {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        fetchRequest.predicate = NSPredicate(format: "id == \(id)")
+        let res = try! context.fetch(fetchRequest)
+        return res.count > 0 ? true : false
     }
 }

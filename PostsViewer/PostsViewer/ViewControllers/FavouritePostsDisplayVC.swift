@@ -1,8 +1,8 @@
 //
-//  PostsDisplayVC.swift
+//  FavouritePostsDisplayVC.swift
 //  PostsViewer
 //
-//  Created by keyur.tailor on 22/02/21.
+//  Created by keyur.tailor on 26/02/21.
 //  Copyright © 2021 keyur.tailor. All rights reserved.
 //
 
@@ -10,20 +10,19 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class PostsDisplayVC: UIViewController {
+class FavouritePostsDisplayVC: UIViewController {
 
-    @IBOutlet weak var postsTableView: UITableView!
+    @IBOutlet weak var favouritePostsTable: UITableView!
     
     var viewModel: AllPostsDisplayViewModel!
     var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel = AllPostsDisplayViewModel()
+
+        self.viewModel = AllPostsDisplayViewModel()
         
         self.setupTable()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,19 +34,19 @@ class PostsDisplayVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.getPosts()
+        viewModel.getFavouritePosts()
     }
     
     func setupUI() {
         self.navigationController?.isNavigationBarHidden = false
         self.tabBarController?.navigationItem.hidesBackButton = true
-        self.tabBarController?.navigationItem.title = "Posts"
+        self.tabBarController?.navigationItem.title = "Favourite"
     }
     
     func setupTable() {
         DataStorageHelper.shared.listOfPosts
             .observeOn(MainScheduler.instance)
-            .bind(to: postsTableView.rx.items) { (tableView, index, post) -> UITableViewCell in
+            .bind(to: favouritePostsTable.rx.items) { (tableView, index, post) -> UITableViewCell in
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: IndexPath.init(row: index, section: 0)) as! PostCell
                 cell.cellViewModel = PostCellViewModel(post: post)
@@ -55,10 +54,10 @@ class PostsDisplayVC: UIViewController {
                 
             }.disposed(by: disposeBag)
         
-        postsTableView.rx.itemSelected
+        favouritePostsTable.rx.itemSelected
             .subscribe({ indexPath in
-                DataStorageHelper.shared.markFavouritePost(indexPath: indexPath, listType: .AllPosts)
+                DataStorageHelper.shared.markFavouritePost(indexPath: indexPath, listType: .FavouritePosts)
             }).disposed(by: disposeBag)
     }
-    
+
 }

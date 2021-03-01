@@ -24,6 +24,8 @@ class LoginVC: UIViewController {
         
         emailTextfield.becomeFirstResponder()
         
+        self.navigationController?.isNavigationBarHidden = true
+        
         setObservables()
     }
     
