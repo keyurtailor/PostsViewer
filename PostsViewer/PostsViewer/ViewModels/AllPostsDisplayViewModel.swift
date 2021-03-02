@@ -16,6 +16,8 @@ struct AllPostsDisplayViewModel {
     let persistenceManager = PersistenceService.shared
     var disposeBag = DisposeBag()
     
+    var listOfPosts = BehaviorRelay(value: [PostDetail]())
+    
     init() {
         
     }
@@ -23,19 +25,24 @@ struct AllPostsDisplayViewModel {
     func fetchDataFromAPI() {
         WebserviceHelper.shared.getPostsList(successCallback: { (posts) in
             let _ = posts.map { DataStorageHelper.shared.savePostToCoreData(postObj: $0) }
-            self.dataStorage.fetchAllPostsFromCoreData()
+            self.listOfPosts.accept(self.dataStorage.fetchAllPostsFromCoreData())
         }) { (failureDict) in
-            self.dataStorage.fetchAllPostsFromCoreData()
+            self.listOfPosts.accept(self.dataStorage.fetchAllPostsFromCoreData())
             print(failureDict)
         }
     }
     
     func getPosts() {
-        dataStorage.fetchAllPostsFromCoreData()
+        self.listOfPosts.accept(dataStorage.fetchAllPostsFromCoreData())
     }
     
     func getFavouritePosts() {
-        dataStorage.fetchFavouritePostsFromCoreData()
+        self.listOfPosts.accept(dataStorage.fetchFavouritePostsFromCoreData())
+    }
+    
+    func markFavouritePost(indexPath: Event<IndexPath>, listType: PostListType) {
+        dataStorage.markFavouritePost(indexPath: indexPath, listType: listType, data: self.listOfPosts)
+        listType == PostListType.AllPosts ? self.listOfPosts.accept(dataStorage.fetchAllPostsFromCoreData()) : self.listOfPosts.accept(dataStorage.fetchFavouritePostsFromCoreData())
     }
     
 }

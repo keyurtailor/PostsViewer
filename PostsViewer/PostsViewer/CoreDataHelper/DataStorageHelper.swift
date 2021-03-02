@@ -21,28 +21,32 @@ final class DataStorageHelper {
     
     static let shared = DataStorageHelper()
     
-    var listOfPosts = BehaviorRelay(value: [PostDetail]())
-    
-    func fetchAllPostsFromCoreData() {
-        self.listOfPosts.accept([PostDetail]())
-        self.listOfPosts.accept(PersistenceService.shared.fetch(PostDetail.self))
+    func fetchAllPostsFromCoreData() -> [PostDetail] {
+        let listOfCoreDataPosts = BehaviorRelay(value: [PostDetail]())
+        
+        listOfCoreDataPosts.accept([PostDetail]())
+        listOfCoreDataPosts.accept(PersistenceService.shared.fetch(PostDetail.self))
+        
+        return listOfCoreDataPosts.value
     }
     
-    func fetchFavouritePostsFromCoreData() {
+    func fetchFavouritePostsFromCoreData() -> [PostDetail] {
+        let listOfCoreDataFavouritePosts = BehaviorRelay(value: [PostDetail]())
+        
         let posts = PersistenceService.shared.fetch(PostDetail.self)
         let favPosts = posts.filter { $0.favourite }
         
-        self.listOfPosts.accept([PostDetail]())
-        self.listOfPosts.accept(favPosts)
+        listOfCoreDataFavouritePosts.accept([PostDetail]())
+        listOfCoreDataFavouritePosts.accept(favPosts)
+        
+        return listOfCoreDataFavouritePosts.value
     }
     
-    func markFavouritePost(indexPath: Event<IndexPath>, listType: PostListType) {
+    func markFavouritePost(indexPath: Event<IndexPath>, listType: PostListType, data: BehaviorRelay<[PostDetail]>) {
         switch indexPath {
         case .next(let value):
-            self.listOfPosts.value[value.row].favourite = !self.listOfPosts.value[value.row].favourite
+            data.value[value.row].favourite = !data.value[value.row].favourite
             PersistenceService.shared.saveContext()
-            self.fetchAllPostsFromCoreData()
-            listType == PostListType.AllPosts ? self.fetchAllPostsFromCoreData() : self.fetchFavouritePostsFromCoreData()
         case .error(let error):
             print(error.localizedDescription)
         case .completed:

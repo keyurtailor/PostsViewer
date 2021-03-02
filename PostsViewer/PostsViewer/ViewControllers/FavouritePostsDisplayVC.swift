@@ -44,7 +44,7 @@ class FavouritePostsDisplayVC: UIViewController {
     }
     
     func setupTable() {
-        DataStorageHelper.shared.listOfPosts
+        viewModel.listOfPosts
             .observeOn(MainScheduler.instance)
             .bind(to: favouritePostsTable.rx.items) { (tableView, index, post) -> UITableViewCell in
                 
@@ -55,8 +55,8 @@ class FavouritePostsDisplayVC: UIViewController {
             }.disposed(by: disposeBag)
         
         favouritePostsTable.rx.itemSelected
-            .subscribe({ indexPath in
-                DataStorageHelper.shared.markFavouritePost(indexPath: indexPath, listType: .FavouritePosts)
+            .subscribe({ [weak self] indexPath in
+                self?.viewModel.markFavouritePost(indexPath: indexPath, listType: .FavouritePosts)
             }).disposed(by: disposeBag)
     }
 
