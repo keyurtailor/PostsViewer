@@ -21,6 +21,7 @@ class PostsDisplayVC: UIViewController {
         super.viewDidLoad()
         
         viewModel = AllPostsDisplayViewModel()
+        viewModel.fetchDataFromAPI()
         
         self.setupTable()
         

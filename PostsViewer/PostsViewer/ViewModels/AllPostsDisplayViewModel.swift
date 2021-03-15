@@ -25,7 +25,6 @@ struct AllPostsDisplayViewModel {
     func fetchDataFromAPI() {
         WebserviceHelper.shared.getPostsList(successCallback: { (posts) in
             let _ = posts.map { DataStorageHelper.shared.savePostToCoreData(postObj: $0) }
-            self.listOfPosts.accept(self.dataStorage.fetchAllPostsFromCoreData())
         }) { (failureDict) in
             self.listOfPosts.accept(self.dataStorage.fetchAllPostsFromCoreData())
             print(failureDict)
